@@ -22,8 +22,27 @@ h1, h2, h3 {
 	font-family: 'Uncial Antiqua', cursive;
 }
 
-h4, h5, h6, p, ul, ol, blockquote, li {
+h4, h5, h6, p, ul, ol, blockquote, li, a {
 	font-family: 'Texturina', Arial, serif;
+}
+
+a:hover {
+	color: rgb(245, 56, 98);
+}
+
+li {
+	max-width: 75ch;
+}
+
+ul, ol {
+	margin-left: 1rem;
+}
+
+blockquote {
+	border-left: 5px solid rgb(245, 56, 98);
+	background-color: rgba(0,0,0,0.1);
+	padding: 1ex 1em;
+	max-width: 75ch;
 }
 
 code {

@@ -1,35 +1,17 @@
-import { useEffect, useState } from 'react';
-import Head from 'next/head';
-import ReactMarkdown from 'react-markdown';
-import remarkGfm from 'remark-gfm';
-import { PageWrapper } from '../components/PageWrapper';
-import getMember from './api/getMember';
-import { getPublicDocs } from '../lib/posts';
+export default function Home() {
 
-export default function Home(props) {
-  const [member, setMember] = useState(0);
+	const goToDocsIndex = () => {
+		window.location.pathname = '/docs';
+	}
 
-  useEffect(async function () {
-    setMember(await getMember());
-  }, []);
-
-  return (
-    <>
-      <PageWrapper>
-        <ReactMarkdown
-          children={props.allPostsData[0].fileContent}
-          remarkPlugins={[remarkGfm]}
-        />
-      </PageWrapper>
-    </>
-  );
-}
-
-export async function getStaticProps() {
-  const allPostsData = getPublicDocs();
-  return {
-    props: {
-      allPostsData,
-    },
-  };
+	return (
+		<>
+			<div style={{ display: `grid`, placeItems: `center`, minHeight: `100vh`, minWidth: `100vw` }}>
+				<div style={{ display: `flex`, flexDirection: `column`, alignItems: `center` }}>
+					<h3>DOCS!</h3>
+					<h4 onClick={() => goToDocsIndex()}>Enter App</h4>
+				</div>
+			</div>
+		</>
+	);
 }

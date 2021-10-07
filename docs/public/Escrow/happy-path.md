@@ -4,7 +4,7 @@ title: Happy Path
 sidebar_label: Happy Path
 ---
 
-> :warning:&nbsp; **WARNING:** Never send funds (tokens or ETH) directly to the escrow smart contract. Those funds will not be recoverable.
+> ⚠️ **WARNING:** Never send funds (tokens or ETH) directly to the escrow smart contract. Those funds will not be recoverable.
 
 1. Raid party lead (i.e., <span id='monk'>Cleric</span> or <span id='monk'>Monk</span>) [creates an escrow](https://xdai.escrow.raidguild.org/) for the raid, with the following info:
     - **Raid party multisig address** (xDAI Gnosis Safe Address)
