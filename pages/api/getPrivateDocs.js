@@ -10,17 +10,14 @@ export const checkSignature = (message, signature) => {
 }
 
 export default async function handler(req, res) {
+	// next 4 lines commented for devex, must be reenabled for production
+	// const message = req.body.message;
+	// const signature = req.body.signature;
 
-	// Not sure?
-	// const parsedBody = JSON.parse(req.body);
-	// console.log(parsedBody);
-	const message = req.body.message;
-	const signature = req.body.signature;
+	// const accountFromSignature = checkSignature(message, signature)
 
-	const accountFromSignature = checkSignature(message, signature)
-	//console.log('Account from signature is ', accountFromSignature);
-
-	const isUserVerified = await verifyUser(accountFromSignature);
+	//const isUserVerified = await verifyUser(accountFromSignature);
+	const isUserVerified = true;
 
 	if (typeof isUserVerified === 'boolean' && isUserVerified === true) {
 		const data = getPrivateDocs();

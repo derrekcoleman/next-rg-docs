@@ -2,6 +2,8 @@
 id: join-a-raid
 title: Join a Raid
 sidebar_label: Join a Raid
+category: Raids
+private: false
 ---
 
 Any member with at least one Share is eligible to join an existing Raid.

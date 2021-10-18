@@ -2,6 +2,8 @@
 id: lead-a-raid
 title: Lead a Raid
 sidebar_label: Lead a Raid
+category: Raids
+private: false
 ---
 
 Well well well! Welcome to the big leagues.
@@ -24,10 +26,10 @@ Where leading certain Raids may not have hard coded economic benefits, you do st
 
 For those looking for guidance on how to structure a Raid bounty, here’s what we suggest:
 
--   10% War Chest Treasury &mdash; _mandatory_
--   5% Hunter (Biz Dev)
--   10% Cleric (Account Manager)
--   15% Monk (Project Manager)
--   60% Project (Wizard, Paladin, Archer, etc.)
+- 10% War Chest Treasury &mdash; _mandatory_
+- 5% Hunter (Biz Dev)
+- 10% Cleric (Account Manager)
+- 15% Monk (Project Manager)
+- 60% Project (Wizard, Paladin, Archer, etc.)
 
 This is meant to be a framework and as such, different Raid breakdowns may vary. All that we ask is that a minimum of 10% of Raid work is tributed back to the War Chest upon completion.

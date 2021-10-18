@@ -2,6 +2,8 @@
 id: shipped
 title: Ship a Raid
 sidebar_label: Ship a Raid
+category: Raids
+private: false
 ---
 
 ### Shipped

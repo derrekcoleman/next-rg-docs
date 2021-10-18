@@ -1,7 +1,9 @@
 import { useState, useEffect } from 'react';
-import { PageWrapper } from '../../components/PageWrapper';
+import { Sidebar } from '../../components/PageWrapper';
 import { getSignature } from '../../lib/getSignature';
 import { getPrivateData } from '../../lib/getPrivateData';
+import { Center, Heading, Box, VStack, Grid } from '@chakra-ui/react'
+import { ethers } from "ethers";
 import Head from 'next/head';
 
 export default function Page() {
@@ -40,15 +42,18 @@ export default function Page() {
 	return (
 		<>
 			{(typeof pageData !== 'undefined') &&
-				<>
-					<Head>
-						<title>Docs Overview</title>
-					</Head>
-					<PageWrapper sidebarData={pageData} privatePageData={privatePageData}>
-						<h2>Docs Overview</h2>
-
-					</PageWrapper>
-				</>
+				<Box h="100vh" w="100vw" overflow="hidden" sx={{ position: `relative` }}>
+					<Grid templateColumns="1fr 4fr">
+						<Sidebar data={pageData} />
+						<Center bg="brand.900" h="100%" w="100%" color="brand.500" sx={{ userSelect: 'none' }}>
+							<VStack align="center" spacing="3rem" sx={{ zIndex: `2` }}>
+								<Heading as="h2" size="xl" sx={{ textAlign: `center`, textShadow: `0px 4px black` }}>Hark! Adventurers!<br /> Observe a new tool for slaying Moloch: </Heading>
+								<Heading as="h1" size="3xl" sx={{ textAlign: `center`, textShadow: `0px 4px black` }}>Web3 Powered Documentation</Heading>
+								<Heading as="h2" size="xl" sx={{ textAlign: `center`, textShadow: `0px 4px black` }}>Smart-Contract Secured Arcana</Heading>
+							</VStack>
+						</Center>
+					</Grid>
+				</Box>
 			}
 		</>
 	)

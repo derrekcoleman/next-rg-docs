@@ -1,12 +1,14 @@
 import { useEffect, useState } from 'react';
 import Head from 'next/head';
-import ReactMarkdown from 'react-markdown';
-import remarkGfm from 'remark-gfm';
+import Markdown from 'react-markdown';
 import matter from "gray-matter";
-import { PageWrapper } from '../../components/PageWrapper';
-import { MetaData } from '../../components/Metadata';
-import { getSignature } from '../../lib/getSignature';
-import { getPrivateData } from '../../lib/getPrivateData';
+import { Sidebar, MobileSidebar } from '../../components/PageWrapper';
+import LogInButton from '../../components/LogIn';
+import {MobileSidebarButton} from '../../components/MobileSidebarButton';
+import { Heading, Box, Grid } from '@chakra-ui/react'
+import gfm from 'remark-gfm';
+import raw from 'rehype-raw';
+
 
 export default function Home(props) {
 
@@ -16,33 +18,30 @@ export default function Home(props) {
 	const [currentPageContent, setCurrentPageContent] = useState();
 	const [currentSlug, setCurrentSlug] = useState();
 	const [slugParameters, setSlugParameters] = useState();
+	const [windowWidth, setWindowWith] = useState();
+	const [isSidebarVisible, setIsSidebarVisible] = useState();
 
-	useEffect(async () => {
-		setCurrentSlug(window.location.pathname);
-		if (!window?.sessionStorage.getItem('publicData')) {
-			const response = await fetch('/api/getPublicDocs');
-			const resJson = await response.json();
-			const stringifiedPublicData = JSON.stringify(resJson.data);
-			window.sessionStorage.setItem('publicData', stringifiedPublicData);
-			setPageData(resJson.data);
+	useEffect(() => {
+		const slug = window.location.pathname;
+		setCurrentSlug(`${slug}`);
+		const width = window.innerWidth;
+		console.log(5 + '5');
+		setWindowWith(width);
+		const getData = async () => {	
+			if (!window?.sessionStorage.getItem('publicData')) {
+				const response = await fetch('/api/getPublicDocs');			
+				const resJson = await response.json();
+				const stringifiedPublicData = JSON.stringify(resJson.data);
+				window.sessionStorage.setItem('publicData', stringifiedPublicData);
+				setPageData(resJson.data);
+			}
+			if (window?.sessionStorage.getItem('publicData')) {
+				const stringifiedPublicData = window.sessionStorage.getItem('publicData');
+				const publicData = JSON.parse(stringifiedPublicData);
+				setPageData(publicData);
+			}
 		}
-		if (window?.sessionStorage.getItem('publicData')) {
-			const stringifiedPublicData = window.sessionStorage.getItem('publicData');
-			const publicData = JSON.parse(stringifiedPublicData);
-			setPageData(publicData);
-		}
-		if (!window?.sessionStorage.getItem('privateData')) {
-			// get private data IFF it hasn't already been got and the user is allowed
-			const privateResponse = await getPrivateData(await getSignature());
-			const stringifiedPrivateData = JSON.stringify(privateResponse);
-			window.sessionStorage.setItem('privateData', stringifiedPrivateData);
-			setPrivatePageData(privateResponse.data);
-		}
-		if (window?.sessionStorage.getItem('privateData')) {
-			const stringifiedPrivateData = window.sessionStorage.getItem('privateData');
-			const privateData = JSON.parse(stringifiedPrivateData);
-			setPrivatePageData(privateData);
-		}
+		getData();
 	}, []);
 
 	useEffect(() => {
@@ -55,8 +54,9 @@ export default function Home(props) {
 	}, [currentSlug]);
 
 	useEffect(() => {
+
 		if (typeof slugParameters !== 'undefined' && typeof pageData !== 'undefined') {
-			pageData[slugParameters[0]]?.forEach((post) => {
+			pageData?.forEach((post) => {
 				if (slugParameters[1] === post.slug) {
 					const { data, content } = matter(post.fileContent);
 					setCurrentPageData(data);
@@ -64,7 +64,7 @@ export default function Home(props) {
 				}
 			});
 			if (typeof privatePageData !== 'undefined') {
-				console.log(privatePageData);
+				
 				privatePageData[slugParameters[0]]?.forEach((post) => {
 					// updates current page if private data is available only
 					if (slugParameters[1] === post.slug) {
@@ -81,18 +81,65 @@ export default function Home(props) {
 
 	return (
 		<>
-			{(typeof currentPageData !== 'undefined' && typeof currentPageContent !== 'undefined') &&
+			{(typeof currentPageData !== 'undefined' && typeof currentPageContent !== 'undefined') && (windowWidth > 450) &&
 				<>
 					<Head>
-						<title>{currentPageData.title}</title>
+						<title>{`${currentPageData.category} | ${currentPageData.title}`}</title>
 					</Head>
-					<PageWrapper sidebarData={pageData} privatePageData={privatePageData}>
-						<h2>{currentPageData.title}</h2>
-						<ReactMarkdown children={currentPageContent} remarkPlugins={[remarkGfm]} />
-					</PageWrapper>
+					<Box h="100vh" w="100vw" sx={{ position: `relative` }}>
+						<Grid templateColumns="1fr 4fr" >
+							<Sidebar data={pageData} />
+							<Box sx={{
+								backgroundColor: `brand.900`,
+								padding: `2rem`,
+								color: 'white',
+								overflowY: `scroll`,
+								maxHeight: `100vh`,
+							}}>
+							<Box sx={{maxWidth: `800px`, margin: `0 auto`}}>
+								<Heading as="h2" sx={{ fontSize: `3rem` }}>{currentPageData?.title}</Heading>
+								<div className="md-container">
+									<Markdown remarkPlugins={[gfm]} rehypePlugins={[raw]}>
+										{currentPageContent}
+									</Markdown>
+								</div>
+							</Box>
+							</Box>
+						</Grid>
+					</Box>
+					<LogInButton setPrivatePageData={(d) => setPrivatePageData(d)} /> {/* d for data */}
 				</>
 			}
-
+			{(typeof currentPageData !== 'undefined' && typeof currentPageContent !== 'undefined') && (windowWidth <= 450) &&
+				<>
+					<Head>
+						<title>{`${currentPageData.category} | ${currentPageData.title}`}</title>
+					</Head>
+					<Box h="100vh" w="100vw" sx={{ position: `relative` }}>
+						<Grid templateColumns="1fr" >
+							<Box sx={{
+								backgroundColor: `brand.900`,
+								padding: `2rem`,
+								color: 'white',
+								overflowY: `scroll`,
+								maxHeight: `100vh`,
+							}}>
+							<Box sx={{maxWidth: `800px`, margin: `0 auto`}}>
+								<Heading as="h2" sx={{ fontSize: `3rem`, marginTop: `3rem`, marginBottom: `1rem` }}>{currentPageData?.title}</Heading>
+								<div className="md-container">
+									<Markdown remarkPlugins={[gfm]} rehypePlugins={[raw]}>
+										{currentPageContent}
+									</Markdown>
+								</div>
+							</Box>
+							</Box>
+						</Grid>
+					</Box>
+					<LogInButton setPrivatePageData={(d) => setPrivatePageData(d)} /> {/* d for data */}
+					<MobileSidebar data={pageData} isVisible={isSidebarVisible} />
+					<MobileSidebarButton onClick={() => setIsSidebarVisible(v => !v)} />
+				</>
+			}
 		</>
 	)
 }

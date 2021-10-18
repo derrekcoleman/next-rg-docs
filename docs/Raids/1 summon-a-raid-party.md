@@ -2,6 +2,8 @@
 id: summon-a-raid-party
 title: Summon a Raid Party
 sidebar_label: Summon a Raid Party
+category: Raids
+private: false
 ---
 
 The best place to Summon new Members for a Raid is in the Guild HQ <span class='channels'>#who-is-available</span> channel by tagging the roles in question.
