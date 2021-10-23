@@ -21,15 +21,23 @@ export default function LogInButton(props) {
 		if (window?.sessionStorage.getItem('miniAddress')) {
 			setButtonText(window.sessionStorage.getItem('miniAddress'));
 		}
+		if (window?.sessionStorage.getItem('privateData')) {
+			if (address) {
+				let first4 = address.substring(0, 4);
+				let last4 = address.substring(address.length - 4, address.length);
+				setButtonText(`${first4}...${last4}`);
+				window.sessionStorage.setItem('miniAddress', `${first4}...${last4}`);
+			}
+		}
 	}, [])
 
 	const revealData = async () => {
 		if (!window?.sessionStorage.getItem('privateData')) {
 			// get private data IFF it hasn't already been got and the user is allowed
 			const privateResponse = await getPrivateData(await getSignature());
-			const stringifiedPrivateData = JSON.stringify(privateResponse);
+			const stringifiedPrivateData = JSON.stringify(privateResponse.data);
 			window.sessionStorage.setItem('privateData', stringifiedPrivateData);
-			props.setPrivatePageData(privateResponse.data);
+			props.setDataFunction(privateResponse.data);
 			if (address) {
 				let first4 = address.substring(0, 4);
 				let last4 = address.substring(address.length - 4, address.length);
@@ -40,7 +48,7 @@ export default function LogInButton(props) {
 		if (window?.sessionStorage.getItem('privateData')) {
 			const stringifiedPrivateData = window.sessionStorage.getItem('privateData');
 			const privateData = JSON.parse(stringifiedPrivateData);
-			props.setPrivatePageData(privateData);
+			props.setDataFunction(privateData);
 			if (address) {
 				let first4 = address.substring(0, 4);
 				let last4 = address.substring(address.length - 4, address.length);
