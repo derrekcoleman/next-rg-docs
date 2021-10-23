@@ -1,0 +1,23 @@
+{
+  "editor.formatOnSave": true,
+  "eslint.alwaysShowStatus": true,  
+  "editor.defaultFormatter": "dbaeumer.vscode-eslint",
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  },
+  "eslint.format.enable": true,
+  "eslint.validate": [
+    "javascript",
+  ],
+  "files.associations": {
+    ".env.local": "env",
+    ".env.development": "env",
+    ".env.production": "env",
+  },
+  "[javascript]": {
+    "editor.defaultFormatter": "dbaeumer.vscode-eslint"
+  },
+  "[javascriptreact]": {
+      "editor.defaultFormatter": "dbaeumer.vscode-eslint"
+  },
+}

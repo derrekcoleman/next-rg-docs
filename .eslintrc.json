@@ -1,3 +1,44 @@
 {
-  "extends": "next/core-web-vitals"
+  "env": {
+    "browser": true,
+    "es6": true
+  },
+  "extends": [
+    "prettier",
+    "plugin:react/recommended",
+    "next/core-web-vitals"
+  ],
+  "globals": {
+    "Atomics": "readonly",
+    "SharedArrayBuffer": "readonly"
+  },
+  "parser": "babel-eslint",
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
+    },
+    "ecmaVersion": 2018,
+    "sourceType": "module"
+  },
+  "plugins": ["react", "prettier"],
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
+  },
+  "rules": {
+    "jsx-quotes": ["error", "prefer-single"],
+    "no-console": "off",
+    "no-unused-vars": "warn",
+    "no-return-assign": "off",
+    "no-underscore-dangle": "off",
+    "no-nested-ternary": "off",
+    "prettier/prettier": ["error"],
+
+    // REACT
+    "react/display-name": "warn",
+    "react/prop-types": "off",
+    "react/jsx-props-no-spreading": "off",
+    "react/no-array-index-key": "off"
+  }
 }
