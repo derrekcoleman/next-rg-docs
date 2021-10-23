@@ -3,7 +3,7 @@ id: commission-process
 title: Commission Process
 sidebar_label: Commission Process
 category: Raids
-private: true
+private: false
 ---
 
 After the Raid enters Prepping for Battle, the Cleric who led the consultation is responsible for gathering additional Raiders as is necessary to scope out the full project.
