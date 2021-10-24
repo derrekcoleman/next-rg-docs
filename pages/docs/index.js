@@ -4,7 +4,8 @@ import LogInButton from '../../components/LogIn';
 import { MobileSidebarButton } from '../../components/MobileSidebarButton';
 import { Center, Heading, Box, VStack, Grid } from '@chakra-ui/react';
 
-export default function Page() {
+export default function Page(props) {
+  console.log(props.count);
   const [pageData, setPageData] = useState();
   const [windowWidth, setWindowWidth] = useState();
 
@@ -124,4 +125,18 @@ export default function Page() {
       )}
     </>
   );
+}
+
+
+export async function getStaticProps(context) {
+
+
+  const fileCount = await fetch('http://localhost:3000/api/countFiles').then((res) => res.json());
+  console.log(fileCount);
+
+  return {
+    props: {
+      count: fileCount
+    }
+  }
 }
