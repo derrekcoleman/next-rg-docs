@@ -1,8 +1,9 @@
 import {countFiles} from '../../lib/posts';
 
-export default function handler(req, res) {
+export default async function handler(req, res) {
 
-    const count = countFiles();
+    const count = await countFiles();
+    console.log(count);
     if (typeof count !== 'undefined' && req.method === 'GET') {
         res.status(200).json({'count': count});
     }

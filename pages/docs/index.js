@@ -135,7 +135,7 @@ export async function getStaticProps(context) {
   
   console.log(fileCount);
 
-  const fC = fileCount.json();
+  const fC = await fileCount.json();
 
   return {
     props: {
