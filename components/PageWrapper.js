@@ -51,7 +51,7 @@ const SidebarList = ({ data }) => {
 						{categoryPosts[category].map((post, index) => {
 							return (
 								<Box sx={{ width: `100%`, paddingLeft: `1rem`, userSelect: `none`}}>
-								<Link href={`/${post.category}/${post.slug}`} key={`${post.slug}--${index}`}>
+								<Link href={`/${post.slug}`} key={`${post.slug}--${index}`}>
 										<a>
 									<Text _hover={{ cursor: `pointer`, color: `brand.100`}}>
 											{post['sidebar_label']}
@@ -162,13 +162,13 @@ export const Sidebar = (props) => {
 			sx={{ borderRight: `3px solid`, borderColor: "brand.500", overflowY: 'scroll', userSelect: `none` }}
 			css={{
 				'&::-webkit-scrollbar': {
-					width: '1rem',
+					width: '8px',
 				},
 				'&::-webkit-scrollbar-track': {
-					width: '6px',
+					width: '8px',
 				},
 				'&::-webkit-scrollbar-thumb': {
-					background: "brand.500",
+					background: "rgb(255,56,100)",
 					borderRadius: '24px',
 				},
 			}}

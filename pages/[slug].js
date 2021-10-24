@@ -2,9 +2,9 @@ import { useEffect, useState } from 'react';
 import Head from 'next/head';
 import Markdown from 'react-markdown';
 import matter from 'gray-matter';
-import { Sidebar, MobileSidebar } from '../../components/PageWrapper';
-import LogInButton from '../../components/LogIn';
-import { MobileSidebarButton } from '../../components/MobileSidebarButton';
+import { Sidebar, MobileSidebar } from '../components/PageWrapper';
+import LogInButton from '../components/LogIn';
+import { MobileSidebarButton } from '../components/MobileSidebarButton';
 import { Heading, Box, Grid } from '@chakra-ui/react';
 import gfm from 'remark-gfm';
 import raw from 'rehype-raw';
@@ -66,7 +66,7 @@ export default function Home() {
       typeof pageData !== 'undefined'
     ) {
       pageData?.forEach((post) => {
-        if (slugParameters[1] === post.slug) {
+        if (slugParameters[0] === post.slug) {
           const { data, content } = matter(post.fileContent);
           setCurrentPageData(data);
           setCurrentPageContent(content);
