@@ -131,12 +131,15 @@ export default function Page(props) {
 export async function getStaticProps(context) {
 
 
-  const fileCount = await fetch('https://next-rg-docs.vercel.app/api/countFiles').then((res) => res.json());
+  const fileCount = await fetch('https://next-rg-docs.vercel.app/api/countFiles');
+  
   console.log(fileCount);
+
+  const fC = fileCount.json();
 
   return {
     props: {
-      count: fileCount
+      count: fC
     }
   }
 }
