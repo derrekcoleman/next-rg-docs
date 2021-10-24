@@ -13,7 +13,7 @@ export default function Page() {
     setWindowWidth(width);
     const getData = async () => {
       if (!window?.sessionStorage.getItem('publicData')) {
-        const response = await fetch('/api/getPublicDocs');
+        const response = await fetch(`https://next-rg-docs.vercel.app/api/getPublicDocs`); // returns 'localhost' locally
         const resJson = await response.json();
         const stringifiedPublicData = JSON.stringify(resJson.data);
         window.sessionStorage.setItem('publicData', stringifiedPublicData);
